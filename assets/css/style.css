@@ -1,0 +1,77 @@
+:root {
+	--hobby-oasis-orange: #ffa080;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;	
+}
+
+html {
+	background-color: black;
+	color: white;
+	font-family: sans-serif;
+}
+
+body {
+	margin: min(32px, 2vw);
+}
+
+header {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+h1 {
+	color: var(--hobby-oasis-orange);
+	margin-top: 20px;
+}
+
+h2 {
+	margin-bottom: 10px;
+}
+
+h3 {
+	font-size: 1.25em;
+}
+
+section {
+	background-color: #202020;
+	border-radius: 20px;
+	margin: 10px 0;
+	padding: 20px min(32px, 3vw);
+}
+
+#logo {
+	align-items: center;
+	border: dashed 1px gray;
+	color: var(--hobby-oasis-orange);
+	display: flex;
+	height: min(400px, 45vw);
+	justify-content: center;
+	width: min(800px, 90vw);
+}
+
+.start-hidden {
+	display: hidden;
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+.hide {
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 1s;
+}
+
+.show {
+	display: block;
+	opacity: 1;
+	pointer-events: all;
+}
