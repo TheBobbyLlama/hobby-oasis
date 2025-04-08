@@ -11,7 +11,7 @@ const carouselData = [
 	},
 	{
 		header: "Coming Soon: Curated D&D",
-		synopsis: "Persistent campaigns with the same DM and party the whole way",
+		synopsis: "Persistent campaigns with the same DM and party the whole way!",
 		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ex metus, tempus ut ipsum sed, posuere mollis ipsum. Quisque dictum feugiat nisl, at tempor mi."
 	}
 ];
@@ -20,6 +20,7 @@ const carouselButtonLeft = document.getElementById("carousel-left");
 const carouselButtonRight = document.getElementById("carousel-right");
 
 let activeItem = 0;
+let carouselTimer;
 
 function populateCarousel() {
 	let tmpElement;
@@ -45,10 +46,22 @@ function populateCarousel() {
 	moveCarousel(0);
 	document.getElementById("news").className += " show";
 	document.getElementById("schedule").className += " show"; // Janky hack mate!
+	carouselTimer = setInterval(moveCarousel, 5000, 1, true);
 }
 
-function moveCarousel(value) {
-	activeItem = Math.min(Math.max(activeItem += value, 0), carouselData.length - 1);
+function stopTimer() {
+	if (carouselTimer) {
+		clearInterval(carouselTimer);
+		carouselTimer = undefined;
+	}
+}
+
+function moveCarousel(value, autoScroll) {
+	activeItem = Math.max(activeItem += value, 0);
+
+	if (activeItem >= carouselData.length) {
+		activeItem = autoScroll ? 0 : carouselData.length - 1;
+	}
 
 	const carouselItems = carouselElement.getElementsByClassName("carousel-item");
 
@@ -59,8 +72,12 @@ function moveCarousel(value) {
 	}
 	carouselButtonLeft.className = activeItem > 0 ? "hide show" : "hide";
 	carouselButtonRight.className = activeItem < carouselData.length-1 ? "hide show" : "hide";
+
+	if (!autoScroll) {
+		stopTimer();
+	}
 }
 
-setTimeout(populateCarousel, 1);
+setTimeout(populateCarousel, 500);
 carouselButtonLeft.addEventListener("click", () => { moveCarousel(-1)});
 carouselButtonRight.addEventListener("click", () => { moveCarousel(1)});
